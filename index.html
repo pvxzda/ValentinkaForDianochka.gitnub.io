@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валентинка</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        #valentine-card {
+            margin-top: 20%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .heart-button {
+            font-size: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background-color: red;
+            color: white;
+            width: 80px;
+            height: 80px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .heart-button::before,
+        .heart-button::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart-button::before {
+            top: -40px;
+            left: 0;
+        }
+        .heart-button::after {
+            left: 40px;
+            top: 0;
+        }
+        #yes-screen {
+            display: none;
+            margin-top: 50px;
+        }
+        #yes-screen img {
+            width: 150px;
+            height: auto;
+        }
+        .rose {
+            position: absolute;
+            width: 50px;
+            height: auto;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div id="valentine-card">
+        <h1>Будешь ли ты моей валентинкой? 💖</h1>
+        <div class="buttons">
+            <button id="yes-btn" class="heart-button">Да</button>
+            <button id="no-btn" class="heart-button" style="background-color: gray;">Нет</button>
+        </div>
+    </div>
+
+    <div id="yes-screen">
+        <h2>Yapiiiii! ❤️</h2>
+        <img src="https://media.giphy.com/media/3ohs4BSacFKI7A717y/giphy.gif" alt="Счастливый смайлик">
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        let yesBtn = document.getElementById("yes-btn");
+        let noBtn = document.getElementById("no-btn");
+        let card = document.getElementById("valentine-card");
+        let yesScreen = document.getElementById("yes-screen");
+
+        yesBtn.addEventListener("click", function () {
+            card.style.display = "none";
+            yesScreen.style.display = "block";
+        });
+
+        noBtn.addEventListener("click", function () {
+            noClickCount++;
+            let scale = 1 + noClickCount * 0.3;
+            yesBtn.style.transform = `scale(${scale})`;
+            if (scale >= 3) {
+                yesBtn.style.width = "100vw";
+                yesBtn.style.height = "100vh";
+                yesBtn.style.fontSize = "50px";
+                yesBtn.innerText = "ДА!";
+            }
+        });
+
+        function addRoses() {
+            for (let i = 0; i < 10; i++) {
+                let img = document.createElement("img");
+                img.src = "https://upload.wikimedia.org/wikipedia/commons/3/30/Rose_%28Rosa_gallica%29.jpg";
+                img.classList.add("rose");
+                img.style.top = Math.random() * window.innerHeight + "px";
+                img.style.left = Math.random() * window.innerWidth + "px";
+                document.body.appendChild(img);
+            }
+        }
+        addRoses();
+    </script>
+</body>
+</html>
